@@ -1,0 +1,28 @@
+.guessInputForm {
+  width: max-content;
+  margin: 16px auto;
+  /* border: 1px dotted silver;
+  border-radius: 2px; */
+  padding: 26px 32px 32px;
+}
+
+.guessLabel {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.inputField {
+  display: block;
+  width: 225px;
+  border: 2px solid black;
+  
+  padding: 6px 8px;
+  margin-top: 4px;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.inputField:focus {
+  outline: 3px auto blue;
+  outline-offset: 2px;
+  border-color: transparent;
+}

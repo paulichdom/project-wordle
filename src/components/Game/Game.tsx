@@ -1,7 +1,13 @@
-
+import Input from '../Input';
+import styles from './Game.module.css';
 
 export const Game = () => {
   return (
-    <div>Game</div>
-  )
-}
+    <div className={styles.gameWrapper}>
+      <div>
+
+      </div>
+      <Input />
+    </div>
+  );
+};

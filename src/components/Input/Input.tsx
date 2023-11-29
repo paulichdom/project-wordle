@@ -6,6 +6,7 @@ function Input() {
 
   const handleSubmitAction = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setUserGuess('')
     console.log({ userGuess });
   };
 

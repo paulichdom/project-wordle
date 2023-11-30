@@ -6,7 +6,7 @@ function Input() {
 
   const handleSubmitAction = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setUserGuess('')
+    setUserGuess('');
     console.log({ userGuess });
   };
 
@@ -22,9 +22,12 @@ function Input() {
           id="guess-input"
           type="text"
           placeholder=""
+          pattern="\w{3,16}"
+          required
           value={userGuess}
           onChange={(event) => {
-            setUserGuess(event.target.value);
+            const upperCasedInput = event.target.value.toUpperCase();
+            setUserGuess(upperCasedInput);
           }}
         />
       </label>

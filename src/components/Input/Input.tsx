@@ -1,11 +1,16 @@
-import { FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from "react";
 import styles from './Input.module.css';
 
-function Input() {
+export type InputProps = {
+  setGuesses: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+function Input({setGuesses}: InputProps) {
   const [userGuess, setUserGuess] = useState<string>('');
 
   const handleSubmitAction = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setGuesses(prevValue => [...prevValue, userGuess])
     setUserGuess('');
     console.log({ userGuess });
   };

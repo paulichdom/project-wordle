@@ -1,32 +1,41 @@
 .guessInputForm {
   width: max-content;
   margin: 16px auto;
-  /* border: 1px dotted silver;
-  border-radius: 2px; */
   padding: 26px 32px 32px;
 }
 
 .guessLabel {
   display: block;
-  margin-bottom: 16px;
+}
+
+.inputRow {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-items: center;
+  align-items: baseline;
 }
 
 .inputField {
   display: block;
   width: 225px;
-  border: 2px solid black;
-  
+  border: 1px solid black;
+
   padding: 6px 8px;
   margin-top: 4px;
   border-radius: 3px 3px 3px 3px;
 }
 
 .inputField:focus {
-  outline: 3px auto blue;
-  outline-offset: 2px;
+  outline: 1px auto blue;
+  outline-offset: 1px;
   border-color: transparent;
 }
 
-.inputField:focus:invalid {
-  border-color: red;
+.inputField:invalid+span::after {
+  content: "✖";
+}
+
+.inputField:valid+span::after {
+  content: "✓";
 }

@@ -5,3 +5,9 @@
   align-items: center;
   gap: 32px
 }
+
+.gridContainer {
+  display: grid;
+  grid-template-rows: 75% 20%;
+  height: 100vh;
+}

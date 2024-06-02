@@ -7,5 +7,12 @@ type PageLayout = {
 };
 
 export const PageLayout = ({ children }: PageLayout) => {
-  return <div className={styles.wrapper}>{children}</div>;
+  return (
+    <div className={styles.wrapper}>
+      <header className={styles.header}>
+        <h1>Word Game</h1>
+      </header>
+      <main className={styles.main}>{children}</main>
+    </div>
+  );
 };

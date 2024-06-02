@@ -1,7 +1,9 @@
 .guessInputForm {
-  width: max-content;
-  margin: 16px auto;
-  padding: 26px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0px 2px;
+  width: 100%;
 }
 
 .guessLabel {
@@ -18,12 +20,13 @@
 
 .inputField {
   display: block;
-  width: 225px;
-  border: 1px solid black;
-
+  width: 100%;
+  border: 2px solid hsl(249, 13%, 32%);
+  height: 50px;
   padding: 6px 8px;
   margin-top: 4px;
-  border-radius: 3px 3px 3px 3px;
+  border-radius: 3px;
+  font-size: xx-large;
 }
 
 .inputField:focus {
@@ -34,8 +37,10 @@
 
 .inputField:invalid+span::after {
   content: "✖";
+  color: red;
 }
 
 .inputField:valid+span::after {
   content: "✓";
+  color: green;
 }

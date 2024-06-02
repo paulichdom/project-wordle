@@ -10,7 +10,14 @@ function Input({ setGuesses }: InputProps) {
 
   const handleSubmitAction = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setGuesses((prevValue) => [...prevValue, userGuess]);
+    setGuesses((prevValue) => {
+      console.log({ prevValue });
+      if (prevValue.length === 6) return prevValue;
+
+      prevValue[prevValue.findIndex(e => e === '')] = userGuess;
+
+      return prevValue;
+    });
     setUserGuess('');
     console.log({ userGuess });
   };
@@ -20,14 +27,15 @@ function Input({ setGuesses }: InputProps) {
       className={styles.guessInputForm}
       onSubmit={(event) => handleSubmitAction(event)}
     >
-        <label htmlFor="guess-input" className={styles.guessLabel}>
-          Enter guess:
-        </label>
+      <label htmlFor="guess-input" className={styles.guessLabel}>
+        Enter guess:
+      </label>
       <div className={styles.inputRow}>
         <input
           className={styles.inputField}
           id="guess-input"
           type="text"
+          title="Enter 5 letter word"
           placeholder=""
           pattern="\w{5}"
           maxLength={5}
@@ -38,7 +46,7 @@ function Input({ setGuesses }: InputProps) {
             setUserGuess(upperCasedInput);
           }}
         />
-        <span id='validity'></span>
+        {/* <span id="validity"></span> */}
       </div>
     </form>
   );

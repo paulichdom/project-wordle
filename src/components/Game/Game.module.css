@@ -1,13 +1,12 @@
-.gameWrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 32px
+  gap: 16px
 }
 
-.gridContainer {
+.guessesContainer {
   display: grid;
-  grid-template-rows: 75% 20%;
-  height: 100vh;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 8px;
+  row-gap: 8px;
 }

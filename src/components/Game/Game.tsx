@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import Input from '../Input';
+import { range } from '../../utils';
+import Guess from '../Guess';
 import styles from './Game.module.css';
 
 export const Game = () => {
-  const [guesses, setGuesses] = useState<string[]>([]);
+  const [guesses, setGuesses] = useState<string[]>(range(6).map(() => ''));
+  console.log({ guesses });
+
 
   return (
-    <div className={styles.gameWrapper}>
-      <div className={styles.gridContainer}>
-        <div>
-          {guesses && guesses.map((guess, index) => <p key={index}>{guess}</p>)}
-        </div>
-        <Input setGuesses={setGuesses} />
+    <div className={styles.wrapper}>
+      <div className={styles.guessesContainer}>
+        {guesses.map((guess, index) => (
+          <Guess key={index} guess={guess} />
+        ))}
       </div>
+      <Input setGuesses={setGuesses} />
     </div>
   );
 };

@@ -17,7 +17,7 @@ export default function Guess({ guess }: { guess: string }) {
           </span>
         ))}
       {guess &&
-        guess.split('').map((char, index) => (
+        [...guess].map((char, index) => (
           <span key={index} className={styles.cell}>
             {char.toUpperCase()}
           </span>

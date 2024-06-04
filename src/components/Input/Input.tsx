@@ -12,7 +12,7 @@ function Input({ setGuesses }: InputProps) {
     event.preventDefault();
     setGuesses((prevValue) => {
       console.log({ prevValue });
-      if (prevValue.length === 6) return prevValue;
+      if (prevValue.every(e => e !== '')) return prevValue;
 
       prevValue[prevValue.findIndex(e => e === '')] = userGuess;
 
@@ -42,7 +42,8 @@ function Input({ setGuesses }: InputProps) {
           required
           value={userGuess}
           onChange={(event) => {
-            const upperCasedInput = event.target.value.toUpperCase();
+            const nextValue = event.target.value;
+            const upperCasedInput = nextValue.toUpperCase();
             setUserGuess(upperCasedInput);
           }}
         />

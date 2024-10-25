@@ -8,13 +8,22 @@ function Input() {
   const [userGuess, setUserGuess] = useState<string>('');
   const [guesses, setGuesses] = useState<string[]>(range(6).map(() => ''));
 
+  const handleSetGuesses = () => {
+    if (guesses.every((e) => e !== '')) return;
+
+    if (guesses.every((e) => e === '')) {
+      return setGuesses([userGuess, ...range(5).map(() => '')])
+    }
+
+    if(guesses.some((e) => e === '')) {
+      guesses[guesses.findIndex((e) => e === '')] = userGuess;
+      return guesses
+    }
+  }
+
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setGuesses((prevValue) => {
-      if (prevValue.every((e) => e !== '')) return prevValue;
-      prevValue[prevValue.findIndex((e) => e === '')] = userGuess;
-      return prevValue;
-    });
+    handleSetGuesses();
     setUserGuess('');
   };
 

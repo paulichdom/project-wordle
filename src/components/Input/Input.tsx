@@ -9,14 +9,14 @@ function Input() {
   const [guesses, setGuesses] = useState<string[]>(range(6).map(() => ''));
 
   const handleSetGuesses = () => {
-    if (guesses.every((e) => e !== '')) return;
+    if (guesses.every((guess) => guess !== '')) return;
 
-    if (guesses.every((e) => e === '')) {
+    if (guesses.every((guess) => guess === '')) {
       return setGuesses([userGuess, ...range(5).map(() => '')])
     }
 
-    if(guesses.some((e) => e === '')) {
-      guesses[guesses.findIndex((e) => e === '')] = userGuess;
+    if(guesses.some((guess) => guess === '')) {
+      guesses[guesses.findIndex((guess) => guess === '')] = userGuess;
       return guesses
     }
   }

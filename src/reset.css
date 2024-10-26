@@ -1,25 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Lexend:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito:wght@300;400&family=Poppins&display=swap');
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
+
 * {
   margin: 0;
 }
+
 html,
 body,
 #root {
   height: 100%;
   /* overflow: hidden; */
 }
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: 'Lexend', serif;
 }
+
 img,
 picture,
 video,
@@ -28,12 +35,14 @@ svg {
   display: block;
   max-width: 100%;
 }
+
 input,
 button,
 textarea,
 select {
   font: inherit;
 }
+
 p,
 h1,
 h2,
@@ -43,6 +52,7 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
+
 #root,
 #__next {
   isolation: isolate;

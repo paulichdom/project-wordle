@@ -3,7 +3,7 @@ import styles from './Game.module.css';
 import { GuessBoard } from '../GuessBoard';
 import { range } from '../../utils';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
-import Input from '../Input';
+import GuessInput from '../GuessInput';
 
 const Game = () => {
   const [userGuess, setUserGuess] = useState<string>('');
@@ -41,7 +41,7 @@ const Game = () => {
   return (
     <form className={styles.wrapper} onSubmit={handleFormSubmit}>
       <GuessBoard guesses={guesses} />
-      <Input userGuess={userGuess} handleUserInput={handleUserInput} />
+      <GuessInput userGuess={userGuess} handleUserInput={handleUserInput} />
     </form>
   );
 };

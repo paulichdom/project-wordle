@@ -1,10 +1,10 @@
 import { PageLayout } from '../PageLayout';
-import Input from '../Input';
+import Game from '../Game';
 
 export const App = () => {
   return (
       <PageLayout>
-        <Input />
+        <Game />
       </PageLayout>
   );
 };

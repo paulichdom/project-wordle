@@ -1,12 +1,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px
+  gap: 32px;
 }
 
-.guessesContainer {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  column-gap: 8px;
-  row-gap: 8px;
-}

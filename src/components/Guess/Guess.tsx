@@ -1,21 +1,17 @@
+import { NUM_OF_SLOTS_ALLOWED } from '../../constants';
 import { range } from '../../utils';
-import styles from './Guess.module.css';
+import GuessSlot from './GuessSlot';
 
 export default function Guess({ guess }: { guess: string }) {
-  return (
-    <>
-      {guess.split('').length < 1 &&
-        range(5).map((_, index) => (
-          <span key={index} className={styles.cell}>
-            {guess}
-          </span>
-        ))}
-      {guess &&
-        [...guess].map((char, index) => (
-          <span key={index} className={styles.cell}>
-            {char.toUpperCase()}
-          </span>
-        ))}
-    </>
-  );
+  const isEmptyGuess = guess.split('').length < 1;
+
+  if (isEmptyGuess) {
+    return range(NUM_OF_SLOTS_ALLOWED).map((_, index) => (
+      <GuessSlot key={`${index}-${crypto.randomUUID()}`} />
+    ));
+  }
+
+  return [...guess].map((char) => (
+    <GuessSlot key={crypto.randomUUID()} guessCharacter={char} />
+  ));
 }

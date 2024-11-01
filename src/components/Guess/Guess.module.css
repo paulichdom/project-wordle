@@ -11,3 +11,7 @@
   font-size: xx-large;
   font-weight: 400 ;
 }
+
+.cell.correct {
+  background-color: green;
+}

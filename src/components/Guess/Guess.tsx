@@ -1,4 +1,5 @@
 import { NUM_OF_SLOTS_ALLOWED } from '../../constants';
+import { checkGuess } from '../../game-helpers';
 import { range } from '../../utils';
 import GuessSlot from './GuessSlot';
 
@@ -11,7 +12,9 @@ export default function Guess({ guess }: { guess: string }) {
     ));
   }
 
-  return [...guess].map((char) => (
-    <GuessSlot key={crypto.randomUUID()} guessCharacter={char} />
+  const tmpCorrectAnswer ='WHALE'
+
+  return checkGuess(guess, tmpCorrectAnswer).map((checkedGues) => (
+    <GuessSlot key={crypto.randomUUID()} checkedGuess={checkedGues} />
   ));
 }

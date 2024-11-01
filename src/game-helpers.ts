@@ -1,6 +1,6 @@
-type GuessStatus = 'correct' | 'incorrect' | 'misplaced';
+export type GuessStatus = 'correct' | 'incorrect' | 'misplaced';
 
-type Guess = {
+export type Guess = {
   letter: string;
   status: GuessStatus;
 };

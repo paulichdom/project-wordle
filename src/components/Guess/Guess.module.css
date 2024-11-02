@@ -1,4 +1,3 @@
-
 .cell {
   display: flex;
   width: 64px;
@@ -13,5 +12,16 @@
 }
 
 .cell.correct {
-  background-color: green;
+  border: 2px solid #6baa65;
+  background-color: #6baa65;
+}
+
+.cell.misplaced {
+  border: 2px solid #c9b459;
+  background-color: #c9b459;
+}
+
+.cell.incorrect {
+  border: 2px solid #787d7d;
+  background-color: #787d7d;
 }

@@ -1,9 +1,16 @@
-import { NUM_OF_SLOTS_ALLOWED } from '../../constants';
-import { checkGuess } from '../../game-helpers';
-import { range } from '../../utils';
-import GuessSlot from './GuessSlot';
+import React from "react";
 
-export default function Guess({ guess }: { guess: string }) {
+import GuessSlot from './GuessSlot';
+import { range } from '../../utils';
+import { checkGuess } from '../../game-helpers';
+import { NUM_OF_SLOTS_ALLOWED } from '../../constants';
+
+type GuessProps = {
+  guess: string;
+  answer: string;
+}
+
+const Guess: React.FC<GuessProps> = ({ guess, answer }) => {
   const isEmptyGuess = guess.split('').length < 1;
 
   if (isEmptyGuess) {
@@ -12,9 +19,9 @@ export default function Guess({ guess }: { guess: string }) {
     ));
   }
 
-  const tmpCorrectAnswer ='WHALE'
-
-  return checkGuess(guess, tmpCorrectAnswer).map((checkedGues) => (
-    <GuessSlot key={crypto.randomUUID()} checkedGuess={checkedGues} />
+  return checkGuess(guess, answer).map((checkedGuess) => (
+    <GuessSlot key={crypto.randomUUID()} checkedGuess={checkedGuess} />
   ));
 }
+
+export default Guess;

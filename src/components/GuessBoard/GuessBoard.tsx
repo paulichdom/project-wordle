@@ -5,7 +5,7 @@ import {CORRECT_ANSWER} from "../../constants.ts";
 
 import styles from './GuessBoard.module.css';
 
-export const GuessBoard: React.FC<{guesses: string[]}> = ({guesses}) => {
+export const GuessBoard: React.FC<{ guesses: string[] }> = ({guesses}) => {
   return (
     <div className={styles.board}>
       <div key={guesses.length} className={styles.guessesContainer}>
@@ -13,7 +13,6 @@ export const GuessBoard: React.FC<{guesses: string[]}> = ({guesses}) => {
           <Guess key={index} guess={guess} answer={CORRECT_ANSWER}/>
         ))}
       </div>
-      
     </div>
   );
 };

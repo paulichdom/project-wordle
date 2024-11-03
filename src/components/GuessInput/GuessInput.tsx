@@ -1,13 +1,19 @@
-import styles from './GuessInput.module.css';
-import { i18n } from '../../i18n';
-import { NUM_OF_SLOTS_ALLOWED } from '../../constants';
+import styles from "./GuessInput.module.css";
+
+import { i18n } from "../../i18n";
+import { NUM_OF_SLOTS_ALLOWED } from "../../constants";
 
 type GuessInputProps = {
   userGuess: string;
   handleUserInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isDisabled: boolean;
 };
 
-const GuessInput: React.FC<GuessInputProps> = ({ userGuess, handleUserInput }) => {
+const GuessInput: React.FC<GuessInputProps> = ({
+  userGuess,
+  handleUserInput,
+  isDisabled,
+}) => {
   const minLengthPattern = `\\w{${NUM_OF_SLOTS_ALLOWED}}`;
 
   return (
@@ -26,6 +32,7 @@ const GuessInput: React.FC<GuessInputProps> = ({ userGuess, handleUserInput }) =
           required
           value={userGuess}
           onChange={handleUserInput}
+          disabled={isDisabled}
         />
       </div>
     </div>

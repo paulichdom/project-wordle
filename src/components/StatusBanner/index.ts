@@ -1,2 +1,2 @@
-export * from './StatusBanner';
-export { default } from './StatusBanner';
+export * from "./GameOverDialog";
+export { default } from "./GameOverDialog";

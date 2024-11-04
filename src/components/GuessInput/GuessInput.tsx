@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./GuessInput.module.css";
 
 import { i18n } from "../../i18n";

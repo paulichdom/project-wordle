@@ -2,12 +2,12 @@ import React, { FormEvent, useState } from "react";
 
 import { GuessBoard } from "../GuessBoard";
 import GuessInput from "../GuessInput";
+import GameOverDialog from "../StatusBanner/GameOverDialog.tsx";
 import { range } from "../../utils";
+import { checkGuess } from "../../game-helpers.ts";
 import { CORRECT_ANSWER, NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import styles from "./Game.module.css";
-import { checkGuess } from "../../game-helpers.ts";
-import StatusBanner from "../StatusBanner";
 
 const Game = () => {
   const [userGuess, setUserGuess] = useState<string>("");
@@ -51,15 +51,14 @@ const Game = () => {
       guess.length > 0 && guess.every((letter) => letter.status === "correct")
   );
 
-  const isGameOver = checkedGuesses.every((guess) => guess.length > 0);
-
-  const isInputDisabled =
-    correctAnswerIndex > -1 || (isGameOver && correctAnswerIndex < 0);
+  const isGameOver =
+    correctAnswerIndex > -1 ||
+    checkedGuesses.every((guess) => guess.length > 0);
 
   return (
     <form className={styles.wrapper} onSubmit={handleFormSubmit}>
       <GuessBoard guesses={guesses} />
-      <StatusBanner
+      <GameOverDialog
         isGameOver={isGameOver}
         correctAnswer={CORRECT_ANSWER}
         correctAnswerIndex={correctAnswerIndex}
@@ -67,7 +66,7 @@ const Game = () => {
       <GuessInput
         userGuess={userGuess}
         handleUserInput={handleUserInput}
-        isDisabled={isInputDisabled}
+        isDisabled={isGameOver}
       />
     </form>
   );

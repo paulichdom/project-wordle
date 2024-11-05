@@ -21,30 +21,39 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
   correctAnswer,
 }) => {
   const [isOpen, setIsOpen] = useState(isGameOver);
+  const [dialogStyles, setDialogStyles] = useState(() => styles.animCont);
 
   useEffect(() => {
     setIsOpen(isGameOver);
   }, [isGameOver]);
 
+  useEffect(() => {
+    setDialogStyles(`${styles.animCont} out`);
+  }, []);
+
+  const handleCloseDialog = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Dialog
-      className={styles.wrapper}
+      transition
+      className={dialogStyles}
       open={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={() => {}}
     >
-      <DialogBackdrop className={styles.backdrop} />
+      <DialogBackdrop className={styles.backdrop} onClick={() => {}} />
       <DialogPanel className={styles.dialog}>
         {correctAnswerIndex > -1 && (
-          <div className="happy banner">
+          <div className={styles.happyBanner}>
             <DialogTitle>Congratulations!</DialogTitle>
             <Description>
-              Got it in
-              <strong>{correctAnswerIndex + 1} guesses</strong>.
+              Got it in <strong>{correctAnswerIndex + 1} guesses</strong>.
             </Description>
           </div>
         )}
         {isGameOver && correctAnswerIndex < 0 && (
-          <div className="sad banner">
+          <div className={styles.sadBanner}>
             <DialogTitle>Sorry,</DialogTitle>
             <Description>
               the correct answer is{" "}
@@ -52,7 +61,7 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
             </Description>
           </div>
         )}
-        <button onClick={() => setIsOpen(false)}>Reset game</button>
+        <button onClick={handleCloseDialog}>Reset game</button>
       </DialogPanel>
     </Dialog>
   );

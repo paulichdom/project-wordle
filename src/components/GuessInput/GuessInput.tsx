@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./GuessInput.module.css";
 
 import { i18n } from "../../i18n";
@@ -15,7 +15,14 @@ const GuessInput: React.FC<GuessInputProps> = ({
   handleUserInput,
   isDisabled,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const minLengthPattern = `\\w{${NUM_OF_SLOTS_ALLOWED}}`;
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current?.focus();
+    }
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -24,6 +31,7 @@ const GuessInput: React.FC<GuessInputProps> = ({
       </label>
       <div className={styles.inputRow}>
         <input
+          ref={inputRef}
           className={styles.inputField}
           id="guess-input"
           type="text"

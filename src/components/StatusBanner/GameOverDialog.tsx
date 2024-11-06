@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -6,6 +6,7 @@ import {
   Description,
   DialogBackdrop,
 } from "@headlessui/react";
+import { Smile, Frown } from "react-feather";
 
 import styles from "./GameOverDialog.module.css";
 
@@ -21,19 +22,21 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
   correctAnswer,
 }) => {
   const [isOpen, setIsOpen] = useState(isGameOver);
-  const [dialogStyles, setDialogStyles] = useState(() => styles.animCont);
+  const [dialogStyles, setDialogStyles] = useState(() => styles.wrapper);
 
   useEffect(() => {
     setIsOpen(isGameOver);
   }, [isGameOver]);
 
-  useEffect(() => {
-    setDialogStyles(`${styles.animCont} out`);
-  }, []);
-
   const handleCloseDialog = () => {
-    setIsOpen(false);
+    setDialogStyles(`${styles.wrapper} ${styles.out}`);
+    setTimeout(() => setIsOpen(false), 1200);
   };
+
+  const isGameWon = correctAnswerIndex > -1;
+  const isGameLost = isGameOver && correctAnswerIndex < 0;
+  const happyColor = "#00d605";
+  const sadColor = "#ff1a2a";
 
   return (
     <Dialog
@@ -44,24 +47,28 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
     >
       <DialogBackdrop className={styles.backdrop} onClick={() => {}} />
       <DialogPanel className={styles.dialog}>
-        {correctAnswerIndex > -1 && (
-          <div className={styles.happyBanner}>
+        {isGameWon && (
+          <Fragment>
             <DialogTitle>Congratulations!</DialogTitle>
+            <Smile color={happyColor} size={48} />
             <Description>
               Got it in <strong>{correctAnswerIndex + 1} guesses</strong>.
             </Description>
-          </div>
+          </Fragment>
         )}
-        {isGameOver && correctAnswerIndex < 0 && (
-          <div className={styles.sadBanner}>
-            <DialogTitle>Sorry,</DialogTitle>
+        {isGameLost && (
+          <Fragment>
+            <DialogTitle>Sorry</DialogTitle>
+            <Frown color={sadColor} size={48} />
             <Description>
               the correct answer is{" "}
               <strong>{correctAnswer.toUpperCase()}</strong>.
             </Description>
-          </div>
+          </Fragment>
         )}
-        <button onClick={handleCloseDialog}>Reset game</button>
+        <button className={styles.resetButton} onClick={handleCloseDialog}>
+          Reset game
+        </button>
       </DialogPanel>
     </Dialog>
   );

@@ -9,17 +9,20 @@ import {
 import { Smile, Frown } from "react-feather";
 
 import styles from "./GameOverDialog.module.css";
+import { i18n } from "../../i18n.ts";
 
 type GameOverDialogProps = {
   isGameOver: boolean;
   correctAnswerIndex: number;
   correctAnswer: string;
+  handleGameReset: () => void;
 };
 
 const GameOverDialog: React.FC<GameOverDialogProps> = ({
   isGameOver,
   correctAnswerIndex,
   correctAnswer,
+  handleGameReset,
 }) => {
   const [isOpen, setIsOpen] = useState(isGameOver);
   const [dialogStyles, setDialogStyles] = useState(() => styles.wrapper);
@@ -30,7 +33,11 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
 
   const handleCloseDialog = () => {
     setDialogStyles(`${styles.wrapper} ${styles.out}`);
-    setTimeout(() => setIsOpen(false), 1200);
+    setTimeout(() => {
+      setIsOpen(false);
+      setDialogStyles(styles.wrapper);
+      handleGameReset();
+    }, 1200);
   };
 
   const isGameWon = correctAnswerIndex > -1;
@@ -49,25 +56,24 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
       <DialogPanel className={styles.dialog}>
         {isGameWon && (
           <Fragment>
-            <DialogTitle>Congratulations!</DialogTitle>
+            <DialogTitle>{i18n.game.dialog_title_happy}</DialogTitle>
             <Smile color={happyColor} size={48} />
             <Description>
-              Got it in <strong>{correctAnswerIndex + 1} guesses</strong>.
+              {i18n.game.dialog_description_happy(correctAnswerIndex + 1)}
             </Description>
           </Fragment>
         )}
         {isGameLost && (
           <Fragment>
-            <DialogTitle>Sorry</DialogTitle>
+            <DialogTitle>{i18n.game.dialog_title_sad}</DialogTitle>
             <Frown color={sadColor} size={48} />
             <Description>
-              the correct answer is{" "}
-              <strong>{correctAnswer.toUpperCase()}</strong>.
+              {i18n.game.dialog_description_sad(correctAnswer.toUpperCase())}
             </Description>
           </Fragment>
         )}
         <button className={styles.resetButton} onClick={handleCloseDialog}>
-          Reset game
+          {i18n.game.dialog_button_label}
         </button>
       </DialogPanel>
     </Dialog>

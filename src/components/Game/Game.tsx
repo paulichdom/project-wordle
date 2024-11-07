@@ -42,6 +42,10 @@ const Game = () => {
     setUserGuess(event.target.value.toUpperCase());
   };
 
+  const handleGameReset = () => {
+    setGuesses(range(NUM_OF_GUESSES_ALLOWED).map(() => ""));
+  };
+
   const checkedGuesses = guesses.map((guess) =>
     checkGuess(guess, CORRECT_ANSWER)
   );
@@ -62,6 +66,7 @@ const Game = () => {
         isGameOver={isGameOver}
         correctAnswer={CORRECT_ANSWER}
         correctAnswerIndex={correctAnswerIndex}
+        handleGameReset={handleGameReset}
       />
       <GuessInput
         userGuess={userGuess}

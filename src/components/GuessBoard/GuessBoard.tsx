@@ -1,16 +1,21 @@
 import React from "react";
+import Guess from "../Guess";
+import styles from "./GuessBoard.module.css";
 
-import Guess from '../Guess';
-import {CORRECT_ANSWER} from "../../constants.ts";
+type GuessBoardProps = {
+  guesses: string[];
+  correctAnswer: string;
+};
 
-import styles from './GuessBoard.module.css';
-
-export const GuessBoard: React.FC<{ guesses: string[] }> = ({guesses}) => {
+export const GuessBoard: React.FC<GuessBoardProps> = ({
+  guesses,
+  correctAnswer,
+}) => {
   return (
     <div className={styles.board}>
       <div key={guesses.length} className={styles.guessesContainer}>
         {guesses.map((guess, index) => (
-          <Guess key={index} guess={guess} answer={CORRECT_ANSWER}/>
+          <Guess key={index} guess={guess} answer={correctAnswer} />
         ))}
       </div>
     </div>

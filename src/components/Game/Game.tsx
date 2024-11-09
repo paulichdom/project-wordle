@@ -5,11 +5,14 @@ import GuessInput from "../GuessInput";
 import GameOverDialog from "../StatusBanner/GameOverDialog.tsx";
 import { range } from "../../utils";
 import { checkGuess } from "../../game-helpers.ts";
-import { CORRECT_ANSWER, NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import styles from "./Game.module.css";
+import { useRandomWord } from "../../hooks/useRandomWord.ts";
 
 const Game = () => {
+  const { answer, mutate } = useRandomWord(5);
+
   const [userGuess, setUserGuess] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>(
     range(NUM_OF_GUESSES_ALLOWED).map(() => "")
@@ -44,11 +47,10 @@ const Game = () => {
 
   const handleGameReset = () => {
     setGuesses(range(NUM_OF_GUESSES_ALLOWED).map(() => ""));
+    void mutate();
   };
 
-  const checkedGuesses = guesses.map((guess) =>
-    checkGuess(guess, CORRECT_ANSWER)
-  );
+  const checkedGuesses = guesses.map((guess) => checkGuess(guess, answer));
 
   const correctAnswerIndex = checkedGuesses.findIndex(
     (guess) =>
@@ -61,10 +63,10 @@ const Game = () => {
 
   return (
     <form className={styles.wrapper} onSubmit={handleFormSubmit}>
-      <GuessBoard guesses={guesses} />
+      <GuessBoard guesses={guesses} correctAnswer={answer} />
       <GameOverDialog
         isGameOver={isGameOver}
-        correctAnswer={CORRECT_ANSWER}
+        correctAnswer={answer}
         correctAnswerIndex={correctAnswerIndex}
         handleGameReset={handleGameReset}
       />

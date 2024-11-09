@@ -11,7 +11,7 @@ import styles from "./Game.module.css";
 import { useRandomWord } from "../../hooks/useRandomWord.ts";
 
 const Game = () => {
-  const { answer, mutate } = useRandomWord(5);
+  const { answer, mutate } = useRandomWord({ wordLength: 5 });
 
   const [userGuess, setUserGuess] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>(
@@ -60,6 +60,8 @@ const Game = () => {
   const isGameOver =
     correctAnswerIndex > -1 ||
     checkedGuesses.every((guess) => guess.length > 0);
+
+  console.log({ answer, checkedGuesses, userGuess, guesses });
 
   return (
     <form className={styles.wrapper} onSubmit={handleFormSubmit}>

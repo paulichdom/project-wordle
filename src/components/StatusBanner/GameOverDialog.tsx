@@ -37,7 +37,7 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
       setIsOpen(false);
       setDialogStyles(styles.wrapper);
       handleGameReset();
-    }, 1200);
+    }, 1300);
   };
 
   const isGameWon = correctAnswerIndex > -1;

@@ -9,13 +9,17 @@ export const useRandomWord = (params: { wordLength: number }) => {
     fetcher
   );
 
-  const wordList = data ?? [];
-  const randomWord = wordList[0] ?? "";
-  const answer = randomWord.trim().toUpperCase();
+  const getFetchedWord = (data: string[] | undefined) => {
+    const wordList = data ?? [];
+    const randomWord = wordList[0] ?? "";
+    return randomWord.trim().toUpperCase();
+  };
+
+  const getNewWord = () => mutate().then((data) => getFetchedWord(data));
 
   return {
-    answer,
-    mutate,
+    word: getFetchedWord(data),
+    getNewWord,
     error,
     isLoading,
   };

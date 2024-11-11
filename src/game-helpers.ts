@@ -5,34 +5,53 @@ export type Guess = {
   status: GuessStatus;
 };
 
-export const checkGuess = (
-  userGuess: string,
-  correctAnswer: string
-): Guess[] => {
-  const guessLetters: string[] = [...userGuess];
-  const answerLetters: string[] = [...correctAnswer];
-  const checkedGuesses: Guess[] = [];
+export function checkGuess(guess: string, answer: string): Guess[] {
+  // This constant is a placeholder that indicates we've successfully
+  // dealt with this character (it's correct, or misplaced).
+  const SOLVED_CHAR = "✓";
 
-  /**
-   * TODO - Handle cases:
-   *  1) One letter only -> 'AAAAA'
-   *  3) One letter in a row -> 'HELLO'
-   */
-  guessLetters.forEach((guessLetter, guessIndex) => {
-    if (answerLetters.includes(guessLetter)) {
-      answerLetters.forEach((answerLetter, answerIndex) => {
-        if (guessLetter === answerLetter && guessIndex === answerIndex) {
-          checkedGuesses.push({ letter: guessLetter, status: "correct" });
-        }
+  if (!guess) {
+    return [];
+  }
 
-        if (guessLetter === answerLetter && guessIndex !== answerIndex) {
-          checkedGuesses.push({ letter: guessLetter, status: "misplaced" });
-        }
-      });
-    } else {
-      checkedGuesses.push({ letter: guessLetter, status: "incorrect" });
+  const guessChars = guess.toUpperCase().split("");
+  const answerChars = answer.split("");
+
+  const result: Guess[] = [];
+
+  // Step 1: Look for correct letters.
+  for (let i = 0; i < guessChars.length; i++) {
+    if (guessChars[i] === answerChars[i]) {
+      result[i] = {
+        letter: guessChars[i],
+        status: "correct",
+      };
+      answerChars[i] = SOLVED_CHAR;
+      guessChars[i] = SOLVED_CHAR;
     }
-  });
+  }
 
-  return checkedGuesses;
-};
+  // Step 2: look for misplaced letters. If it's not misplaced,
+  // it must be incorrect.
+  for (let i = 0; i < guessChars.length; i++) {
+    if (guessChars[i] === SOLVED_CHAR) {
+      continue;
+    }
+
+    let status: GuessStatus = "incorrect";
+    const misplacedIndex = answerChars.findIndex(
+      (char) => char === guessChars[i]
+    );
+    if (misplacedIndex >= 0) {
+      status = "misplaced";
+      answerChars[misplacedIndex] = SOLVED_CHAR;
+    }
+
+    result[i] = {
+      letter: guessChars[i],
+      status,
+    };
+  }
+
+  return result;
+}

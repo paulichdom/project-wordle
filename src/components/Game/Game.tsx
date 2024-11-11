@@ -8,6 +8,7 @@ import { checkGuess } from "../../game-helpers.ts";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import styles from "./Game.module.css";
+import Keyboard from "../Keyboard";
 
 type GameProps = {
   word: string;
@@ -50,7 +51,7 @@ const Game: React.FC<GameProps> = ({ word, getNewWord }) => {
 
   const handleGameReset = () => {
     setGuesses(range(NUM_OF_GUESSES_ALLOWED).map(() => ""));
-    void getNewWord().then((newWord) => setAnswer(newWord));
+    getNewWord().then((newWord) => setAnswer(newWord));
   };
 
   const checkedGuesses = guesses.map((guess) => checkGuess(guess, answer));
@@ -78,6 +79,7 @@ const Game: React.FC<GameProps> = ({ word, getNewWord }) => {
         handleUserInput={handleUserInput}
         isDisabled={isGameOver}
       />
+      <Keyboard />
     </form>
   );
 };

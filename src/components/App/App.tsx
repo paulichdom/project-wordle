@@ -1,14 +1,11 @@
 import { PageLayout } from "../PageLayout";
 import Game from "../Game";
-import { useRandomWord } from "../../hooks/useRandomWord.ts";
-import Spinner from "../Spinner";
+import { CORRECT_ANSWER } from "../../constants.ts";
 
 export const App = () => {
-  const { word, getNewWord, isLoading } = useRandomWord({ wordLength: 5 });
-
   return (
     <PageLayout>
-      {isLoading ? <Spinner /> : <Game word={word} getNewWord={getNewWord} />}
+      <Game word={CORRECT_ANSWER} />
     </PageLayout>
   );
 };

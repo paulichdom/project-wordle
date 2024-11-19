@@ -15,5 +15,7 @@ export const i18n = {
     dialog_description_sad: (answer: string): string =>
       `the correct answer is ${answer}`,
     dialog_button_label: "Try again",
+    show_keyboard: "Show Keyboard",
+    hide_keyboard: "Hide Keyboard",
   },
 };

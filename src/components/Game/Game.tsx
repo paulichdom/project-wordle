@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, Fragment, SyntheticEvent, useState } from "react";
 
 import { GuessBoard } from "../GuessBoard";
 import GuessInput from "../GuessInput";
@@ -9,18 +9,20 @@ import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import styles from "./Game.module.css";
 import Keyboard from "../Keyboard";
+import { useToggle } from "../../hooks/useToggle.ts";
+import { i18n } from "../../i18n.ts";
 
 type GameProps = {
   word: string;
-  getNewWord: () => Promise<string>;
 };
 
-const Game: React.FC<GameProps> = ({ word, getNewWord }) => {
-  const [answer, setAnswer] = useState(() => word);
+const Game: React.FC<GameProps> = ({ word }) => {
+  const [answer] = useState(() => word);
   const [userGuess, setUserGuess] = useState<string>("");
   const [guesses, setGuesses] = useState<string[]>(
     range(NUM_OF_GUESSES_ALLOWED).map(() => "")
   );
+  const [showKeyboard, toggleKeyboard] = useToggle();
 
   const handleSetGuesses = () => {
     if (guesses.every((guess) => guess !== "")) return;
@@ -51,8 +53,16 @@ const Game: React.FC<GameProps> = ({ word, getNewWord }) => {
 
   const handleGameReset = () => {
     setGuesses(range(NUM_OF_GUESSES_ALLOWED).map(() => ""));
-    getNewWord().then((newWord) => setAnswer(newWord));
   };
+
+  const handleToggleKeyboard = (event: SyntheticEvent) => {
+    event.preventDefault();
+    toggleKeyboard();
+  };
+
+  const keyboardToggleValue = showKeyboard
+    ? i18n.game.hide_keyboard
+    : i18n.game.show_keyboard;
 
   const checkedGuesses = guesses.map((guess) => checkGuess(guess, answer));
 
@@ -66,21 +76,27 @@ const Game: React.FC<GameProps> = ({ word, getNewWord }) => {
     checkedGuesses.every((guess) => guess.length > 0);
 
   return (
-    <form className={styles.wrapper} onSubmit={handleFormSubmit}>
-      <GuessBoard guesses={guesses} correctAnswer={answer} />
-      <GameOverDialog
-        isGameOver={isGameOver}
-        correctAnswer={answer}
-        correctAnswerIndex={correctAnswerIndex}
-        handleGameReset={handleGameReset}
-      />
-      <GuessInput
-        userGuess={userGuess}
-        handleUserInput={handleUserInput}
-        isDisabled={isGameOver}
-      />
-      <Keyboard />
-    </form>
+    <Fragment>
+      <form className={styles.wrapper} onSubmit={handleFormSubmit}>
+        <GuessBoard guesses={guesses} correctAnswer={answer} />
+        <GameOverDialog
+          isGameOver={isGameOver}
+          correctAnswer={answer}
+          correctAnswerIndex={correctAnswerIndex}
+          handleGameReset={handleGameReset}
+        />
+        {showKeyboard ? (
+          <Keyboard />
+        ) : (
+          <GuessInput
+            userGuess={userGuess}
+            handleUserInput={handleUserInput}
+            isDisabled={isGameOver}
+          />
+        )}
+      </form>
+      <button onClick={handleToggleKeyboard}>{keyboardToggleValue}</button>
+    </Fragment>
   );
 };
 
